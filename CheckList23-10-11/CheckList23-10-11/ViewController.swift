@@ -10,18 +10,21 @@ import SnapKit
 
 class ViewController: UIViewController {
 
+    private let fruits: [String] = [
+        "りんご", "みかん", "バナナ", "パイナップル"
+    ]
+
+    private let cellIdentifier = "CustomCell"
+
     private let tableView: UITableView = {
         let table = UITableView()
         table.backgroundColor = .lightGray
         return table
     }()
-    
-    let cellIdentifier = "CustomCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupComponents()
-        setConstrains()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CheckListTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
@@ -30,9 +33,7 @@ class ViewController: UIViewController {
     private func setupComponents() {
         view.backgroundColor = .white
         view.addSubview(tableView)
-    }
 
-    private func setConstrains() {
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -44,7 +45,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        10
+        fruits.count
     }
 
     func tableView(
@@ -61,7 +62,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: cellIdentifier,
             for: indexPath) as! CheckListTableViewCell
-        cell.customLabel.text = "test\(indexPath.row)"
+        cell.customLabel.text = "\(fruits[indexPath.row])"
 
         return cell
     }
