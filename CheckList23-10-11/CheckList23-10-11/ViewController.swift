@@ -10,8 +10,11 @@ import SnapKit
 
 class ViewController: UIViewController {
 
-    private let fruits: [String] = [
-        "りんご", "みかん", "バナナ", "パイナップル"
+    private let fruits: [String: Bool] = [
+        "りんご": false,
+        "みかん": true,
+        "バナナ": false,
+        "パイナップル": true
     ]
 
     private let cellIdentifier = "CustomCell"
@@ -60,7 +63,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: cellIdentifier,
             for: indexPath) as! CheckListTableViewCell
-        cell.customLabel.text = "\(fruits[indexPath.row])"
+        let fruitName = Array(fruits.keys)[indexPath.row]
+        cell.customLabel.text = fruitName
+        cell.checkImage.isHidden = !(fruits[fruitName] ?? false)
 
         return cell
     }
