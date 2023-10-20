@@ -76,12 +76,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
+        let cell = tableView.dequeueReusableCell(
             withIdentifier: cellIdentifier,
             for: indexPath
-        ) as? CheckListTableViewCell else {
-            return CheckListTableViewCell()
-        }
+        ) as! CheckListTableViewCell
         cell.configure(fruits[indexPath.row])
 
         return cell
